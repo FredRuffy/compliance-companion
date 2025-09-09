@@ -14,20 +14,23 @@ export default function Page() {
     setLoading(true);
     setReply('');
 
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input })
-      });
-      const data = await res.json();
-      setReply(data.reply);
-    } catch (err) {
-      setReply('Error: ' + err.message);
-    } finally {
-      setLoading(false);
-    }
+try {
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: input })
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || 'Unknown error');
   }
+
+  setReply(data.reply);
+} catch (err) {
+  setReply('Error: ' + err.message);
+}
+
 
   return (
     <main style={{ maxWidth: 600, margin: '0 auto', textAlign: 'center' }}>
