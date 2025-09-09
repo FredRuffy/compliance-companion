@@ -21,16 +21,11 @@ try {
     body: JSON.stringify({ message: input })
   });
   const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.error || 'Unknown error');
-  }
-
+  if (!res.ok) throw new Error(data.error || 'Unknown error');
   setReply(data.reply);
 } catch (err) {
   setReply('Error: ' + err.message);
 }
-
 
   return (
     <main style={{ maxWidth: 600, margin: '0 auto', textAlign: 'center' }}>
