@@ -1,5 +1,6 @@
-export async function POST(req) {
-  const body = await req.json().catch(() => ({}));
-  return Response.json({ ok: true, echo: body?.message ?? null });
-}
+// app/api/chat/route.js
+export const runtime = 'nodejs';
 
+export async function POST() {
+  return Response.json({ ok: true });
+}
